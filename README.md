@@ -68,7 +68,7 @@ $ cd Camping-Site && npm intsall
 # Make a .env file and include the Database details
 
 # Start application
-$ nodemon index.js
+$ nodemon app.js
 
 # Visit localhost:5500 in your browser
 ```
