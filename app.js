@@ -6,6 +6,7 @@ const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError');
 const methodOverride=require('method-override');
 const Campground= require('./models/campground');
+const { error } = require('console');
 mongoose.connect('mongodb://localhost:27017/yelp-camp',
     {
     useNewUrlParser:true,
@@ -68,9 +69,10 @@ app.all('*',(req,res,next)=>{
     next(new ExpressError('Page Not found',404));
 })
 app.use((err,req,res,next)=>{
-    const {statusCode=500,message="Something went wrong"}= err;
-    res.status(statusCode).render('error');
-    res.send("Oh boi! not found");
+    const {statusCode=500}= err;
+    if(!err.message) err.message="Oh no!! Something went wrong"
+    return res.status(statusCode).render('error',{err});
+    
 })
 
 app.listen(5500,()=>{
