@@ -2,6 +2,7 @@ const express = require ('express');
 const mongoose = require ('mongoose');
 const path=require('path');
 const ejsMate=require('ejs-mate');
+const Joi=require('joi');
 const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError');
 const methodOverride=require('method-override');
@@ -39,6 +40,17 @@ app.get('/campgrounds/new',catchAsync((req,res)=>{
     res.render('campgrounds/new.ejs');
 }));
 app.post('/campgrounds',catchAsync(async (req,res)=>{    
+    const campgroundSchema=Joi.object({
+        campground:Joi.object().required({
+            title:Joi.string().required(),
+            price:Joi.number().required().min(0)
+        })
+    });
+    const {error}=campgroundSchema.validate(req.body);
+    if(error){
+        const msg=error.details.map(el=>el.message).join(',');
+        throw new ExpressError(msg,400);
+    }
     const campground=new Campground(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
@@ -66,7 +78,7 @@ app.delete('/campgrounds/:id',catchAsync(async (req,res)=>{
 }));
 
 app.all('*',(req,res,next)=>{
-    next(new ExpressError('Page Not found',404));
+    return next(new ExpressError('Page Not found',404));
 })
 app.use((err,req,res,next)=>{
     const {statusCode=500}= err;
