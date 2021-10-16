@@ -63,7 +63,7 @@ Index
 $ git clone 
 
 # navigate to the project's directory and install all the relevant dev-dependencies
-$ cd Camping-Site && npm intsall
+$ cd YelpCamp && npm intsall
 
 # Make a .env file and include the Database details
 
