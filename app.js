@@ -2,7 +2,7 @@ const express = require ('express');
 const mongoose = require ('mongoose');
 const path=require('path');
 const ejsMate=require('ejs-mate');
-const {campgroundSchema}=require('./schema');
+const {campgroundSchema}=require('./schemas');
 const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError');
 const methodOverride=require('method-override');
@@ -60,15 +60,14 @@ app.get('/campgrounds/:id',catchAsync(async (req,res)=>{
     res.render('campgrounds/show.ejs',{campground});
 }));
 app.get('/campgrounds/:id/edit',catchAsync(async(req,res)=>{
-    if(!req.body.params) throw new ExpressError();
     const campground =await Campground.findById(req.params.id);
     res.render('campgrounds/edit.ejs',{campground});
 }));
 
-app.put('/campgrounds/:id',catchAsync(async (req,res)=>{
-    const {id}=req.params;
-    const campground=await Campground.findByIdAndUpdate(id,{...req.body.campground});
-    res.redirect(`/campgrounds/${campground._id}`);
+app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+    res.redirect(`/campgrounds/${campground._id}`)
 }));
 
 app.delete('/campgrounds/:id',catchAsync(async (req,res)=>{
