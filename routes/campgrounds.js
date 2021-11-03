@@ -6,7 +6,6 @@ const upload = multer({ storage });
 const campgrounds = require("../controllers/campgrounds");
 const catchAsync = require("../utils/catchAsync");
 const { isLoggedIn, isAuthor, validateCampground } = require("../middleware");
-
 const Campground = require("../models/campground");
 
 router.route("/").get(catchAsync(campgrounds.index)).post(
@@ -24,6 +23,7 @@ router
 	.put(
 		isLoggedIn,
 		isAuthor,
+    upload.array('image'),
 		validateCampground,
 		catchAsync(campgrounds.updateCampground)
 	)
