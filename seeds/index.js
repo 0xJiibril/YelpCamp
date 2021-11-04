@@ -21,29 +21,37 @@ db.once("open", () => {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 200; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
-            author:'6173bb3ae454397c60c1e4c4',
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`,
-            image: [
-                {
-                    url: 'https://res.cloudinary.com/anas12345/image/upload/v1635687637/YelpCamp/rnk6mxrjrxv5cvivvrso.jpg',
-                    filename: 'YelpCamp/rnk6mxrjrxv5cvivvrso',
-                    _id: new ObjectId("617e9cdb5598f3314d72f6ef")
-                },
-                {
-                    url: 'https://res.cloudinary.com/anas12345/image/upload/v1635687643/YelpCamp/i5aoyvcumm3alu9huv6l.jpg',
-                    filename: 'YelpCamp/i5aoyvcumm3alu9huv6l',
-                    _id: new ObjectId("617e9cdb5598f3314d72f6f0")
-                }
-            ],
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ea recusandae qui, nam natus eos. Similique impedit asperiores adipisci amet eius illo accusantium beatae fuga numquam! Sed earum quibusdam quisquam.',
-            price, 
-            // idx: `${i}`  
-        })
+					author: "6173bb3ae454397c60c1e4c4",
+					location: `${cities[random1000].city}, ${cities[random1000].state}`,
+					title: `${sample(descriptors)} ${sample(places)}`,
+					geometry: {
+						type: "Point",
+						coordinates: [
+							cities[random1000].longitude,
+							cities[random1000].latitude
+						],
+					},
+					image: [
+						{
+							url: "https://res.cloudinary.com/anas12345/image/upload/v1635687637/YelpCamp/rnk6mxrjrxv5cvivvrso.jpg",
+							filename: "YelpCamp/rnk6mxrjrxv5cvivvrso",
+							_id: new ObjectId("617e9cdb5598f3314d72f6ef"),
+						},
+						{
+							url: "https://res.cloudinary.com/anas12345/image/upload/v1635687643/YelpCamp/i5aoyvcumm3alu9huv6l.jpg",
+							filename: "YelpCamp/i5aoyvcumm3alu9huv6l",
+							_id: new ObjectId("617e9cdb5598f3314d72f6f0"),
+						},
+					],
+					description:
+						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ea recusandae qui, nam natus eos. Similique impedit asperiores adipisci amet eius illo accusantium beatae fuga numquam! Sed earum quibusdam quisquam.",
+					price,
+					// idx: `${i}`
+				});
         await camp.save();
     }
 }
