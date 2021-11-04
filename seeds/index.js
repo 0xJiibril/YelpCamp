@@ -32,7 +32,7 @@ const seedDB = async () => {
 						type: "Point",
 						coordinates: [
 							cities[random1000].longitude,
-							cities[random1000].latitude
+							cities[random1000].latitude,
 						],
 					},
 					image: [
@@ -48,7 +48,7 @@ const seedDB = async () => {
 						},
 					],
 					description:
-						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ea recusandae qui, nam natus eos. Similique impedit asperiores adipisci amet eius illo accusantium beatae fuga numquam! Sed earum quibusdam quisquam.",
+						"Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in pariatur quaerat, labore unde harum.",
 					price,
 					// idx: `${i}`
 				});
