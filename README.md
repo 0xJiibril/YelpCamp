@@ -58,17 +58,36 @@ Index
 
 ## ⬇️ Installation
 
+
+- Clone this repo.
+
 ```
-# clone the repository to your local machine
-$ git clone 
+$ git clone https://github.com/Kadastross/YelpCamp
+```
 
-# navigate to the project's directory and install all the relevant dev-dependencies
-$ cd YelpCamp && npm intsall
+- Then execute the following command on your terminal in the project directory:
+```
+$ cd yelpcamp
+```
+- Install dependencies
 
-# Make a .env file and include the Database details
+```
+$ npm i
+```
 
-# Start application
+- Now run index.js file in seeds folder to seed the database 
+
+```
+$ node seeds/index.js
+```
+
+- Now run app.js file to start the server
+
+```
 $ nodemon app.js
+```
 
-# Visit localhost:5500 in your browser
+```
+# Make a .env file and include the Database details
+# Visit localhost:30000 in your browser
 ```
